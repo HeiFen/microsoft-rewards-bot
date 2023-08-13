@@ -3,6 +3,7 @@ import time
 import datetime
 import os
 import cv2
+import random
 
 # os.system('"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"')
 
@@ -77,8 +78,9 @@ if __name__ == "__main__":
 
     # 开始PC循环搜索
     count = 0
-    while count < 30:
-        pyautogui.typewrite(f"https://cn.bing.com/search?q={count}")
+    while count < 40:
+        search = random.randint(0, 999999999)
+        pyautogui.typewrite(f"https://cn.bing.com/search?q={search}")
         time.sleep(1)
         pyautogui.press("enter")
         pyautogui.press("enter")
@@ -90,9 +92,10 @@ if __name__ == "__main__":
     # 开始移动端循环搜索
     pyautogui.press("f12")
     ImageMatch(r'.\click-img\search_input.png')
-    count = 30
-    while count < 50:
-        pyautogui.typewrite(f"https://cn.bing.com/search?q={count}")
+    count = 0
+    while count < 30:
+        search = random.randint(0, 999999999)
+        pyautogui.typewrite(f"https://cn.bing.com/search?q={search}")
         time.sleep(1)
         pyautogui.press("enter")
         pyautogui.press("enter")
