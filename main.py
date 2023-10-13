@@ -3,6 +3,14 @@ import time
 import os
 import cv2
 import random
+import winreg
+import atexit
+
+INTERNET_SETTINGS = winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'Software\Microsoft\Windows\CurrentVersion\Internet Settings', 0, winreg.KEY_ALL_ACCESS)
+proxy_status, reg_type = winreg.QueryValueEx(INTERNET_SETTINGS, 'ProxyEnable')
+
+def setProxyStatus(value):
+    winreg.SetValueEx(INTERNET_SETTINGS, 'ProxyEnable', 0, reg_type, value)
 
 def shotSCreen():
     image_dir = r"./screen-image"
@@ -72,6 +80,13 @@ def autoSearch(count: int):
         index += 1
 
 if __name__ == "__main__":
+    # 获取代理，如果代理是开启状态，需要先关闭代理进行搜索，然后脚本结束重新开启代理
+    if (proxy_status == 1):
+        # 关闭代理
+        setProxyStatus(0)
+        # 设置脚本结束重新打开代理
+        atexit.register(setProxyStatus, 1)
+
     # 打开浏览器
     os.system('"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"')
     time.sleep(1)
