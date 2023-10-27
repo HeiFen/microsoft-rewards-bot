@@ -73,10 +73,10 @@ def autoSearch(count: int):
         imageClick(r'.\click-img\search_input.png')
         search = random.randint(0, 999999999)
         pyautogui.typewrite(f"https://cn.bing.com/search?q={search}")
-        time.sleep(1)
+        time.sleep(3)
         pyautogui.press("enter")
         pyautogui.press("enter")
-        time.sleep(1)
+        time.sleep(3)
         index += 1
 
 if __name__ == "__main__":
