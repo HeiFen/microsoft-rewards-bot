@@ -1,0 +1,1 @@
+cd C:\Users\Administrator\Desktop\pythob-project\Microsoft-Rewards-Auto-Search & py main.py

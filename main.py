@@ -5,6 +5,7 @@ import cv2
 import random
 import winreg
 import atexit
+import pyperclip
 
 INTERNET_SETTINGS = winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'Software\Microsoft\Windows\CurrentVersion\Internet Settings', 0, winreg.KEY_ALL_ACCESS)
 proxy_status, reg_type = winreg.QueryValueEx(INTERNET_SETTINGS, 'ProxyEnable')
@@ -70,9 +71,20 @@ def imageClick(srctempl: str):
 def autoSearch(count: int):
     index = 0
     while index < count:
+        # 点击
         imageClick(r'.\click-img\search_input.png')
-        search = random.randint(0, 999999999)
-        pyautogui.typewrite(f"https://cn.bing.com/search?q={search}")
+        time.sleep(1)
+        # 搜索词放在剪贴板
+        search1 = chr(random.randint(0x4e00, 0x9fbf))
+        search2 = chr(random.randint(0x4e00, 0x9fbf))
+        search3 = chr(random.randint(0x4e00, 0x9fbf))
+        search4 = chr(random.randint(0x4e00, 0x9fbf))
+        search5 = chr(random.randint(0x4e00, 0x9fbf))
+        # pyperclip.copy(f"https://www.bing.com/search?q={search1 + search2 + search3 + search4 + search5}&cvid=175ed9bf25dd4da9a00a62f37680aea1&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhA0gEHOTIzajBqNKgCCLACAQ&FORM=ANAB01&PC=U531")
+        pyperclip.copy(f"{search1 + search2 + search3 + search4 + search5}")
+
+        # 粘贴在搜索栏
+        pyautogui.hotkey('Ctrl', 'V')
         time.sleep(3)
         pyautogui.press("enter")
         pyautogui.press("enter")
@@ -80,12 +92,6 @@ def autoSearch(count: int):
         index += 1
 
 if __name__ == "__main__":
-    # 获取代理，如果代理是开启状态，需要先关闭代理进行搜索，然后脚本结束重新开启代理
-    if (proxy_status == 1):
-        # 关闭代理
-        setProxyStatus(0)
-        # 设置脚本结束重新打开代理
-        atexit.register(setProxyStatus, 1)
 
     # 打开浏览器
     os.system('"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"')
@@ -95,11 +101,11 @@ if __name__ == "__main__":
     autoSearch(34)
 
     # 转换到移动端
-    pyautogui.press("f12")
-    time.sleep(1)
-    if (imageMatch(r'.\click-img\if-phone.png') == False):
-        imageClick(r'.\click-img\f12-off.png')
-    time.sleep(1)
+    # pyautogui.press("f12")
+    # time.sleep(1)
+    # if (imageMatch(r'.\click-img\if-phone.png') == False):
+    #     imageClick(r'.\click-img\f12-off.png')
+    # time.sleep(1)
 
     # 开始移动端循环搜索
-    autoSearch(21)
+    # autoSearch(21)
