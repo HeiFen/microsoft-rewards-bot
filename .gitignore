@@ -3,3 +3,6 @@
 /dist
 /main.spec
 /screen-image/*
+__pycache__/
+*.py[cod]
+/userData
