@@ -5,6 +5,7 @@ import os
 import pyautogui
 from func.activity import autoActivity
 from func.search import autoSearch
+from helper import helper
 from helper.helper import check_proxy_status, setProxyStatus
 from playwright.sync_api import sync_playwright
 
@@ -21,6 +22,8 @@ if __name__ == "__main__":
     edge_path = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
     subprocess.Popen([edge_path, '--start-maximized'])
     time.sleep(1)
+    # 全屏
+    helper.imageClick(r'.\clickImg\maximize.png')
 
     # 开始PC搜索循环搜索
     autoSearch(34)
